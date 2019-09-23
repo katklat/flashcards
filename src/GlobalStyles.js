@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components/macro'
 
 export default createGlobalStyle`
   * {
@@ -8,5 +8,9 @@ export default createGlobalStyle`
   body {
     margin: 0;
     background: #eee;
+  }
+
+  input, button {
+    font-size: 1em;
   }
 `
