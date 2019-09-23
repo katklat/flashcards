@@ -10,7 +10,7 @@ export default createGlobalStyle`
     background: #eee;
   }
 
-  input, button {
+  input, button, textarea {
     font-size: 1em;
   }
 `
