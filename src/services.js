@@ -6,6 +6,10 @@ export function postCard(data) {
   return fetchCards({ method: 'POST', data })
 }
 
+export function patchCard(id, data) {
+  return fetchCards({ method: 'PATCH', id, data })
+}
+
 function fetchCards({ method = 'GET', id = '', data } = {}) {
   return fetch('/cards/' + id, {
     method,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function Card({ title, question, answer }) {
+export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
 
   function toggleAnswer() {
@@ -12,6 +12,7 @@ export default function Card({ title, question, answer }) {
     <CardStyled onClick={toggleAnswer}>
       <h2>{title}</h2>
       <p>{question}</p>
+      <i onClick={onBookmarkClick}>{isBookmarked ? 'Bookmarked' : 'Not Bookmarked'}</i>
       {isAnswerVisible && <Answer text={answer} />}
     </CardStyled>
   )
