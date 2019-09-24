@@ -24,7 +24,7 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route path="/practice" component={PracticePage} />
           <Route path="/bookmarks" component={BookmarksPage} />
-          <Route path="/settings" render={() => <SettingsPage onSubmit={createCard} />} />
+          <Route path="/settings" render={() => <SettingsPage title="Settings" onSubmit={createCard} />} />
         </Switch>
         <Navigation />
       </AppStyled>

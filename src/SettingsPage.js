@@ -1,17 +1,20 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import Page from './Page'
 
-export default function SettingsPage({ onSubmit }) {
+export default function SettingsPage({ onSubmit, title }) {
   function handleSubmit(event) {
     event.preventDefault()
-    const formData = new FormData(event.target)
+    const form = event.target
+    const formData = new FormData(form)
     const data = Object.fromEntries(formData)
     onSubmit(data)
+    form.reset()
+    form.title.focus()
   }
 
   return (
-    <main>
-      <h1>Settings Page</h1>
+    <Page title={title}>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Title
@@ -27,7 +30,7 @@ export default function SettingsPage({ onSubmit }) {
         </LabelStyled>
         <button>Create card</button>
       </FormStyled>
-    </main>
+    </Page>
   )
 }
 
