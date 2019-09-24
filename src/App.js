@@ -5,6 +5,8 @@ import styled from 'styled-components/macro'
 import SettingsPage from './SettingsPage'
 import { getCards, postCard, patchCard } from './services'
 
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [cards, setCards] = useState([])
@@ -30,22 +32,14 @@ export default function App() {
     })
   }
 
-  function renderPage() {
-    const pages = {
-      0: <HomePage cards={cards} onBookmarkClick={handleBookmarkClick} />,
-      1: <section>Practice</section>,
-      2: <section>Bookmarks</section>,
-      3: <SettingsPage onSubmit={createCard} />,
-    }
-
-    return pages[activeIndex] || <section>404</section>
-  }
-
   return (
-    <AppStyled>
-      {renderPage()}
-      <Navigation buttonTexts={['Home', 'Practice', 'Bookmarks', 'Settings']} onClick={setActiveIndex} />
-    </AppStyled>
+    <Router>
+      <AppStyled>
+        <Route exact path="/" render={() => <HomePage cards={cards} onBookmarkClick={handleBookmarkClick} />} />
+        <Route path="/settings" render={() => <SettingsPage onSubmit={createCard} />} />
+        <Navigation />
+      </AppStyled>
+    </Router>
   )
 }
 
