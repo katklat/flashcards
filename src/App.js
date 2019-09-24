@@ -1,23 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navigation from './Navigation'
 import HomePage from './HomePage'
 import styled from 'styled-components/macro'
 import SettingsPage from './SettingsPage'
+import { getCards } from './services'
 
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [cards, setCards] = useState([
-    {
-      title: 'Foo',
-      question: 'What?',
-      answer: 'That!',
-    },
-    {
-      title: 'Bar',
-      question: 'This?',
-      answer: 'That!',
-    },
-  ])
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {
+    getCards().then(setCards)
+  }, [])
 
   function createCard(cardData) {
     console.log(cardData)
