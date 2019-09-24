@@ -1,46 +1,68 @@
-import React, { useState, useEffect } from 'react'
-import Navigation from './Navigation'
-import HomePage from './HomePage'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import CardPage from './CardPage'
+import Navigation from './Navigation'
+import { getCards, patchCard, postCard } from './services'
 import SettingsPage from './SettingsPage'
-import { getCards, postCard } from './services'
 
 export default function App() {
-  useEffect(() => {
-    getCards()
-      .then(setCards)
-      .catch(err => console.warn('ERROR, could not getCards', err))
-  }, [])
-
-  const [activeIndex, setActiveIndex] = useState(0)
   const [cards, setCards] = useState([])
 
+  useEffect(() => {
+    getCards().then(setCards)
+  }, [])
+
+  const HomePage = withCardPage('Homepage')
+  const PracticePage = withCardPage('Practice', 'doPractice')
+  const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
+
   return (
-    <AppStyled>
-      {renderPage()}
-      <Navigation buttonTexts={['Home', 'Practice', 'Bookmarks', 'Settings']} onClick={setActiveIndex} />
-    </AppStyled>
+    <Router>
+      <AppStyled>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/practice" component={PracticePage} />
+          <Route path="/bookmarks" component={BookmarksPage} />
+          <Route path="/settings" render={() => <SettingsPage onSubmit={createCard} />} />
+        </Switch>
+        <Navigation />
+      </AppStyled>
+    </Router>
   )
 
-  function handleSubmit(data) {
-    postCard(data).then(newCard => setCards([...cards, newCard]))
+  function createCard(cardData) {
+    postCard(cardData).then(card => {
+      setCards([...cards, card])
+    })
   }
 
-  function renderPage() {
-    const pages = {
-      0: <HomePage cards={cards} />,
-      1: <section>Practice</section>,
-      2: <section>Bookmarks</section>,
-      3: <SettingsPage onSubmit={handleSubmit} />,
-    }
+  function handleBookmarkClick(card) {
+    patchCard(card._id, { isBookmarked: !card.isBookmarked }).then(updatedCard => {
+      const index = cards.findIndex(card => card._id === updatedCard._id)
+      setCards([
+        ...cards.slice(0, index),
+        { ...card, isBookmarked: updatedCard.isBookmarked },
+        ...cards.slice(index + 1),
+      ])
+    })
+  }
 
-    return pages[activeIndex] || <section>404</section>
+  function withCardPage(title, filterProp) {
+    return () => {
+      const filteredCards = filterProp ? cards.filter(card => card[filterProp]) : cards
+      return <CardPage title={title} cards={filteredCards} onBookmarkClick={handleBookmarkClick} />
+    }
   }
 }
 
-const AppStyled = styled.section`
+const AppStyled = styled.div`
   display: grid;
   grid-template-rows: auto 48px;
-  height: 100vh;
-  font-family: sans-serif;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
 `
