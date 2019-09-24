@@ -10,7 +10,7 @@ export default function SettingsPage({ onSubmit }) {
   }
 
   return (
-    <div>
+    <main>
       <h1>Settings Page</h1>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
@@ -27,7 +27,7 @@ export default function SettingsPage({ onSubmit }) {
         </LabelStyled>
         <button>Create card</button>
       </FormStyled>
-    </div>
+    </main>
   )
 }
 

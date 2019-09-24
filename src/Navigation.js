@@ -8,13 +8,14 @@ export default function Navigation() {
       <LinkStyled exact to="/">
         Home
       </LinkStyled>
+      <LinkStyled to="/practice">Practice</LinkStyled>
+      <LinkStyled to="/bookmarks">Bookmarks</LinkStyled>
       <LinkStyled to="/settings">Settings</LinkStyled>
     </NavigationStyled>
   )
 }
 
 const LinkStyled = styled(NavLink)`
-  font-size: 2em;
   flex-grow: 1;
   color: inherit;
   text-decoration: none;

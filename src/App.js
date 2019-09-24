@@ -1,19 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import Navigation from './Navigation'
-import HomePage from './HomePage'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import CardPage from './CardPage'
+import Navigation from './Navigation'
+import { getCards, patchCard, postCard } from './services'
 import SettingsPage from './SettingsPage'
-import { getCards, postCard, patchCard } from './services'
-
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 export default function App() {
-  const [activeIndex, setActiveIndex] = useState(0)
   const [cards, setCards] = useState([])
 
   useEffect(() => {
     getCards().then(setCards)
   }, [])
+
+  const HomePage = withCardPage('Homepage')
+  const PracticePage = withCardPage('Practice', 'doPractice')
+  const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
+
+  return (
+    <Router>
+      <AppStyled>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/practice" component={PracticePage} />
+          <Route path="/bookmarks" component={BookmarksPage} />
+          <Route path="/settings" render={() => <SettingsPage onSubmit={createCard} />} />
+        </Switch>
+        <Navigation />
+      </AppStyled>
+    </Router>
+  )
 
   function createCard(cardData) {
     postCard(cardData).then(card => {
@@ -32,20 +48,21 @@ export default function App() {
     })
   }
 
-  return (
-    <Router>
-      <AppStyled>
-        <Route exact path="/" render={() => <HomePage cards={cards} onBookmarkClick={handleBookmarkClick} />} />
-        <Route path="/settings" render={() => <SettingsPage onSubmit={createCard} />} />
-        <Navigation />
-      </AppStyled>
-    </Router>
-  )
+  function withCardPage(title, filterProp) {
+    return () => {
+      const filteredCards = filterProp ? cards.filter(card => card[filterProp]) : cards
+      return <CardPage title={title} cards={filteredCards} onBookmarkClick={handleBookmarkClick} />
+    }
+  }
 }
 
-const AppStyled = styled.section`
+const AppStyled = styled.div`
   display: grid;
   grid-template-rows: auto 48px;
-  height: 100vh;
-  font-family: sans-serif;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
 `
