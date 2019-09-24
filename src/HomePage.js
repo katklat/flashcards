@@ -2,12 +2,12 @@ import React from 'react'
 import Card from './Card'
 import styled from 'styled-components/macro'
 
-export default function HomePage({ cards }) {
+export default function HomePage({ cards, onBookmarkClick }) {
   return (
     <PageStyled>
       <h1>Homepage</h1>
-      {cards.map((card, index) => (
-        <Card key={index} title={card.title} question={card.question} answer={card.answer} />
+      {cards.map(card => (
+        <Card key={card._id} {...card} onBookmarkClick={() => onBookmarkClick(card)} />
       ))}
     </PageStyled>
   )

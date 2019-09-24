@@ -3,7 +3,7 @@ import Navigation from './Navigation'
 import HomePage from './HomePage'
 import styled from 'styled-components/macro'
 import SettingsPage from './SettingsPage'
-import { getCards } from './services'
+import { getCards, postCard, patchCard } from './services'
 
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -14,12 +14,25 @@ export default function App() {
   }, [])
 
   function createCard(cardData) {
-    console.log(cardData)
+    postCard(cardData).then(card => {
+      setCards([...cards, card])
+    })
+  }
+
+  function handleBookmarkClick(card) {
+    patchCard(card._id, { isBookmarked: !card.isBookmarked }).then(updatedCard => {
+      const index = cards.findIndex(card => card._id === updatedCard._id)
+      setCards([
+        ...cards.slice(0, index),
+        { ...card, isBookmarked: updatedCard.isBookmarked },
+        ...cards.slice(index + 1),
+      ])
+    })
   }
 
   function renderPage() {
     const pages = {
-      0: <HomePage cards={cards} />,
+      0: <HomePage cards={cards} onBookmarkClick={handleBookmarkClick} />,
       1: <section>Practice</section>,
       2: <section>Bookmarks</section>,
       3: <SettingsPage onSubmit={createCard} />,
