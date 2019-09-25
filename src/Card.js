@@ -1,8 +1,7 @@
-import MarkdownIt from 'markdown-it'
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
+import Markdown from './Markdown'
 
-const md = new MarkdownIt()
 export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
 
@@ -28,7 +27,7 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
     return (
       <>
         <Separator />
-        <div css="word-break: break-word;" dangerouslySetInnerHTML={{ __html: md.render(text) }}></div>
+        <Markdown>{text}</Markdown>
       </>
     )
   }
