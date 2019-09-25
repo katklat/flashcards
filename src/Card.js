@@ -4,15 +4,6 @@ import styled from 'styled-components/macro'
 export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
 
-  function toggleAnswer() {
-    setIsAnswerVisible(!isAnswerVisible)
-  }
-
-  function handleBookmarkClick(event) {
-    event.stopPropagation()
-    onBookmarkClick()
-  }
-
   return (
     <CardStyled onClick={toggleAnswer}>
       <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
@@ -29,6 +20,15 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
         <p>{text}</p>
       </>
     )
+  }
+
+  function toggleAnswer() {
+    setIsAnswerVisible(!isAnswerVisible)
+  }
+
+  function handleBookmarkClick(event) {
+    event.stopPropagation()
+    onBookmarkClick()
   }
 }
 
