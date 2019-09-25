@@ -1,12 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
+
+Card.propTypes = {
+  title: PropTypes.string,
+  question: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  isBookmarked: PropTypes.bool,
+  onBookmarkClick: PropTypes.func,
+}
+
+Card.defaultProps = {
+  title: '(No title)',
+}
 
 export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
 
   return (
     <CardStyled onClick={toggleAnswer}>
-      <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
+      {onBookmarkClick && <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />}
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}

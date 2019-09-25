@@ -7,7 +7,13 @@ export default function HomePage({ cards, onBookmarkClick }) {
     <PageStyled>
       <h1>Homepage</h1>
       {cards.map(card => (
-        <Card key={card._id} {...card} onBookmarkClick={() => onBookmarkClick(card)} />
+        <Card
+          key={card._id}
+          title={card.title}
+          question={card.question}
+          answer={card.answer}
+          onBookmarkClick={() => onBookmarkClick(card)}
+        />
       ))}
     </PageStyled>
   )
