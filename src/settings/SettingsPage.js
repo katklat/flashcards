@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import Page from './Page'
+import Page from '../common/Page'
+import Markdown from '../common/Markdown'
 
 export default function SettingsPage({ onSubmit, title }) {
+  const [answer, setAnswer] = useState('')
+
   function handleSubmit(event) {
     event.preventDefault()
     const form = event.target
@@ -12,6 +15,16 @@ export default function SettingsPage({ onSubmit, title }) {
     form.reset()
     form.title.focus()
   }
+
+  const Answer = () => (
+    <section css="color: #333">
+      <small>
+        <em>Preview:</em>
+      </small>
+      <br />
+      <Markdown>{answer}</Markdown>
+    </section>
+  )
 
   return (
     <Page title={title}>
@@ -25,9 +38,12 @@ export default function SettingsPage({ onSubmit, title }) {
           <textarea name="question" />
         </LabelStyled>
         <LabelStyled>
-          Answer
-          <textarea name="answer" />
+          <div>
+            Answer <small>(Markdown)</small>
+          </div>
+          <textarea name="answer" onChange={event => setAnswer(event.target.value)} />
         </LabelStyled>
+        {answer && <Answer />}
         <ButtonStyled>Create card</ButtonStyled>
       </FormStyled>
     </Page>

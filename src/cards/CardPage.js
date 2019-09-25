@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import Card from './Card'
-import Page from './Page'
+import Page from '../common/Page'
 
 export default function CardPage({ cards, title, onBookmarkClick }) {
   return (
@@ -20,5 +20,5 @@ const Scroller = styled.div`
   gap: 20px;
   overflow-y: auto;
   scroll-behavior: smooth;
-  padding: 20px;
+  padding: 20px 10px;
 `

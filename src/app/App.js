@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import CardPage from './CardPage'
+import CardPage from '../cards/CardPage'
 import Navigation from './Navigation'
-import { getCards, patchCard, postCard } from './services'
-import SettingsPage from './SettingsPage'
+import { getCards, patchCard, postCard } from '../cards/services'
+import SettingsPage from '../settings/SettingsPage'
 
 export default function App() {
   const [cards, setCards] = useState([])

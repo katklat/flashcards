@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import Markdown from './Markdown'
+import Markdown from '../common/Markdown'
 
 export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
