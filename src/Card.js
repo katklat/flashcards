@@ -25,7 +25,7 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
   function Answer({ text }) {
     return (
       <>
-        <hr />
+        <Separator />
         <p>{text}</p>
       </>
     )
@@ -47,4 +47,8 @@ const CardStyled = styled.section`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 10px 10px #0002;
+`
+
+const Separator = styled.div`
+  border-top: 1px solid hotpink;
 `

@@ -17,12 +17,12 @@ export default function Navigation() {
 
 const LinkStyled = styled(NavLink)`
   flex-grow: 1;
-  color: inherit;
+  color: white;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: lightgray;
+  background: gray;
 
   &.active {
     background: hotpink;

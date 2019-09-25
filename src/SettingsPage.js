@@ -28,7 +28,7 @@ export default function SettingsPage({ onSubmit, title }) {
           Answer
           <textarea name="answer" />
         </LabelStyled>
-        <button>Create card</button>
+        <ButtonStyled>Create card</ButtonStyled>
       </FormStyled>
     </Page>
   )
@@ -43,4 +43,12 @@ const FormStyled = styled.form`
 const LabelStyled = styled.label`
   display: grid;
   gap: 10px;
+`
+
+const ButtonStyled = styled.button`
+  border: none;
+  border-radius: 3px;
+  padding: 10px;
+  background: hotpink;
+  color: white;
 `
