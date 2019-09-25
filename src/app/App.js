@@ -5,6 +5,7 @@ import CardPage from '../cards/CardPage'
 import Navigation from './Navigation'
 import { getCards, patchCard, postCard } from '../cards/services'
 import SettingsPage from '../settings/SettingsPage'
+import Box from '../Box'
 
 export default function App() {
   const [cards, setCards] = useState([])
@@ -21,15 +22,23 @@ export default function App() {
     <Router>
       <AppStyled>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/practice" component={PracticePage} />
-          <Route path="/bookmarks" component={BookmarksPage} />
+          <Route exact path="/" render={HomePage} />
+          <Route path="/box" component={Box} />
+          <Route path="/practice" render={PracticePage} />
+          <Route path="/bookmarks" render={BookmarksPage} />
           <Route path="/settings" render={() => <SettingsPage title="Settings" onSubmit={createCard} />} />
         </Switch>
         <Navigation />
       </AppStyled>
     </Router>
   )
+
+  function withCardPage(title, filterProp) {
+    return () => {
+      const filteredCards = filterProp ? cards.filter(card => card[filterProp]) : cards
+      return <CardPage title={title} cards={filteredCards} onBookmarkClick={handleBookmarkClick} />
+    }
+  }
 
   function createCard(cardData) {
     postCard(cardData).then(card => {
@@ -46,13 +55,6 @@ export default function App() {
         ...cards.slice(index + 1),
       ])
     })
-  }
-
-  function withCardPage(title, filterProp) {
-    return () => {
-      const filteredCards = filterProp ? cards.filter(card => card[filterProp]) : cards
-      return <CardPage title={title} cards={filteredCards} onBookmarkClick={handleBookmarkClick} />
-    }
   }
 }
 

@@ -8,6 +8,7 @@ export default function Navigation() {
       <LinkStyled exact to="/">
         Home
       </LinkStyled>
+      <LinkStyled to="/box">Box</LinkStyled>
       <LinkStyled to="/practice">Practice</LinkStyled>
       <LinkStyled to="/bookmarks">Bookmarks</LinkStyled>
       <LinkStyled to="/settings">Settings</LinkStyled>
