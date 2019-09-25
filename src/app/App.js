@@ -5,7 +5,6 @@ import CardPage from '../cards/CardPage'
 import Navigation from './Navigation'
 import { getCards, patchCard, postCard } from '../cards/services'
 import SettingsPage from '../settings/SettingsPage'
-import Box from '../Box'
 
 export default function App() {
   const [cards, setCards] = useState([])
@@ -23,7 +22,6 @@ export default function App() {
       <AppStyled>
         <Switch>
           <Route exact path="/" render={HomePage} />
-          <Route path="/box" component={Box} />
           <Route path="/practice" render={PracticePage} />
           <Route path="/bookmarks" render={BookmarksPage} />
           <Route path="/settings" render={() => <SettingsPage title="Settings" onSubmit={createCard} />} />
