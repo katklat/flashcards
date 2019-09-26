@@ -8,14 +8,7 @@ export default function CardPage({ cards, title, onBookmarkClick }) {
     <Page title={title}>
       <Scroller>
         {cards.map(card => (
-          <Card
-            key={card._id}
-            title={card.title}
-            question={card.question}
-            answer={card.answer}
-            isBookmarked={card.isBookmarked}
-            onBookmarkClick={() => onBookmarkClick(card)}
-          />
+          <Card key={card._id} {...card} onBookmarkClick={() => onBookmarkClick(card)} />
         ))}
       </Scroller>
     </Page>
