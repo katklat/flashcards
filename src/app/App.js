@@ -8,6 +8,14 @@ import SettingsPage from '../settings/SettingsPage'
 
 export default function App() {
   const [cards, setCards] = useState([])
+  const [selectedTag, setSelectedTag] = useState('all')
+
+  const allTags = Array.from(
+    cards.reduce((prev, card) => {
+      card.tags && card.tags.forEach(tag => prev.add(tag))
+      return prev
+    }, new Set())
+  )
 
   useEffect(() => {
     getCards().then(setCards)
@@ -34,7 +42,19 @@ export default function App() {
   function withCardPage(title, filterProp) {
     return () => {
       const filteredCards = filterProp ? cards.filter(card => card[filterProp]) : cards
-      return <CardPage title={title} cards={filteredCards} onBookmarkClick={handleBookmarkClick} />
+      const filteredByTag =
+        selectedTag === 'all'
+          ? filteredCards
+          : filteredCards.filter(card => card.tags && card.tags.includes(selectedTag))
+      return (
+        <CardPage
+          title={title}
+          cards={filteredByTag}
+          tags={allTags}
+          onBookmarkClick={handleBookmarkClick}
+          onSelectTag={setSelectedTag}
+        />
+      )
     }
   }
 
