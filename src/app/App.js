@@ -51,6 +51,7 @@ export default function App() {
           title={title}
           cards={filteredByTag}
           tags={allTags}
+          selectedTag={selectedTag}
           onBookmarkClick={handleBookmarkClick}
           onSelectTag={setSelectedTag}
         />
