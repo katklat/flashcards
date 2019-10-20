@@ -10,7 +10,7 @@ export default function Tag({ text }) {
   return <TagStyled>{text}</TagStyled>
 }
 
-const TagStyled = styled.div`
+const TagStyled = styled.li`
   display: inline-block;
   padding: 2px 10px;
   background: #eee;

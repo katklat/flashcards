@@ -21,7 +21,7 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}
-      {tags && tags.map(tag => <Tag key={tag} text={tag} />)}
+      <ul css="padding: 0">{tags && tags.map(tag => <Tag key={tag} text={tag} />)}</ul>
     </CardStyled>
   )
 
