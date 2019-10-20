@@ -11,12 +11,16 @@ export default function SettingsPage({ onSubmit, title }) {
     const form = event.target
     const formData = new FormData(form)
     const data = Object.fromEntries(formData)
+    data.tags = data.tags
+      .split(',')
+      .map(t => t.trim())
+      .filter(t => t.length)
     onSubmit(data)
     form.reset()
     form.title.focus()
   }
 
-  const Answer = () => (
+  const AnswerPreview = () => (
     <section css="color: #333">
       <small>
         <em>Preview:</em>
@@ -31,19 +35,23 @@ export default function SettingsPage({ onSubmit, title }) {
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Title
-          <input name="title" />
+          <input name="title" required />
         </LabelStyled>
         <LabelStyled>
           Question
-          <textarea name="question" />
+          <textarea name="question" required />
         </LabelStyled>
         <LabelStyled>
           <div>
             Answer <small>(Markdown)</small>
           </div>
-          <textarea name="answer" onChange={event => setAnswer(event.target.value)} />
+          <textarea name="answer" required onChange={event => setAnswer(event.target.value)} />
         </LabelStyled>
-        {answer && <Answer />}
+        {answer && <AnswerPreview />}
+        <LabelStyled>
+          Tags
+          <input name="tags" required />
+        </LabelStyled>
         <ButtonStyled>Create card</ButtonStyled>
       </FormStyled>
     </Page>

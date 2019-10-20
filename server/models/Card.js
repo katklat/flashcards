@@ -1,11 +1,24 @@
 const mongoose = require('mongoose')
 
 const Card = mongoose.model('Card', {
-  title: String,
-  question: String,
-  answer: String,
+  title: {
+    type: String,
+    required: true,
+  },
+  question: {
+    type: String,
+    required: true,
+  },
+  answer: {
+    type: String,
+    required: true,
+  },
   isBookmarked: Boolean,
-  tags: [String],
+  tags: {
+    type: [String],
+    lowercase: true,
+    required: true,
+  },
 })
 
 module.exports = Card
