@@ -33,14 +33,17 @@ context('Navigation', () => {
     cy.get('header').should('contain', 'Settings')
   })
 
-  it('highlights the selected navigation point', () => {
+  it('does highlight the selected navigation point', () => {
+    cy.get('nav a')
+      .contains('Home')
+      .as('HomeButton')
+      .should('have.css', 'background-color', 'rgb(255, 105, 180)')
+
     cy.get('nav a')
       .contains('Settings')
       .click()
       .should('have.css', 'background-color', 'rgb(255, 105, 180)')
 
-    cy.get('nav a')
-      .contains('Home')
-      .should('have.css', 'background-color', 'rgb(128, 128, 128)')
+    cy.get('@HomeButton').should('have.css', 'background-color', 'rgb(128, 128, 128)')
   })
 })
