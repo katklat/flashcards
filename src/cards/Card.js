@@ -36,12 +36,12 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
 }
 
 const BookmarkStyled = styled.div`
-  width: 40px;
-  height: 40px;
+  height: 30px;
+  border: 10px solid ${props => (props.active ? 'hotpink' : 'lightgray')};
+  border-bottom-color: transparent;
   position: absolute;
   right: 20px;
   top: -5px;
-  background: ${props => (props.active ? 'hotpink' : 'lightgray')};
 `
 
 const CardStyled = styled.section`
