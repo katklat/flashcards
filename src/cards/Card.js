@@ -28,7 +28,7 @@ export default function Card({
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}
-      <ul css="padding: 0">
+      <ul css="padding: 0; margin: 0">
         {tags && tags.map(tag => <Tag key={tag} text={tag} />)}
       </ul>
     </CardStyled>
