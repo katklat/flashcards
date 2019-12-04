@@ -32,7 +32,12 @@ export default function App() {
           <Route exact path="/" render={HomePage} />
           <Route path="/practice" render={PracticePage} />
           <Route path="/bookmarks" render={BookmarksPage} />
-          <Route path="/settings" render={() => <SettingsPage title="Settings" onSubmit={createCard} />} />
+          <Route
+            path="/settings"
+            render={() => (
+              <SettingsPage title="Settings" onSubmit={createCard} />
+            )}
+          />
         </Switch>
         <Navigation />
       </AppStyled>
@@ -41,11 +46,15 @@ export default function App() {
 
   function withCardPage(title, filterProp) {
     return () => {
-      const filteredCards = filterProp ? cards.filter(card => card[filterProp]) : cards
+      const filteredCards = filterProp
+        ? cards.filter(card => card[filterProp])
+        : cards
       const filteredByTag =
         selectedTag === 'all'
           ? filteredCards
-          : filteredCards.filter(card => card.tags && card.tags.includes(selectedTag))
+          : filteredCards.filter(
+              card => card.tags && card.tags.includes(selectedTag)
+            )
       return (
         <CardPage
           title={title}
@@ -66,14 +75,16 @@ export default function App() {
   }
 
   function handleBookmarkClick(card) {
-    patchCard(card._id, { isBookmarked: !card.isBookmarked }).then(updatedCard => {
-      const index = cards.findIndex(card => card._id === updatedCard._id)
-      setCards([
-        ...cards.slice(0, index),
-        { ...card, isBookmarked: updatedCard.isBookmarked },
-        ...cards.slice(index + 1),
-      ])
-    })
+    patchCard(card._id, { isBookmarked: !card.isBookmarked }).then(
+      updatedCard => {
+        const index = cards.findIndex(card => card._id === updatedCard._id)
+        setCards([
+          ...cards.slice(0, index),
+          { ...card, isBookmarked: updatedCard.isBookmarked },
+          ...cards.slice(index + 1),
+        ])
+      }
+    )
   }
 }
 

@@ -35,22 +35,25 @@ export default function SettingsPage({ onSubmit, title }) {
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Title
-          <input name="title" required />
+          <input name="title" />
         </LabelStyled>
         <LabelStyled>
           Question
-          <textarea name="question" required />
+          <textarea name="question" />
         </LabelStyled>
         <LabelStyled>
           <div>
             Answer <small>(Markdown)</small>
           </div>
-          <textarea name="answer" required onChange={event => setAnswer(event.target.value)} />
+          <textarea
+            name="answer"
+            onChange={event => setAnswer(event.target.value)}
+          />
         </LabelStyled>
         {answer && <AnswerPreview />}
         <LabelStyled>
           Tags
-          <input name="tags" required />
+          <input name="tags" />
         </LabelStyled>
         <ButtonStyled>Create card</ButtonStyled>
       </FormStyled>

@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components/macro'
 
 TagFilter.propTypes = {
@@ -10,11 +10,18 @@ TagFilter.propTypes = {
 export default function TagFilter({ onClick, tags, selectedTag }) {
   return (
     <Grid>
-      <ButtonStyled active={selectedTag === 'all'} onClick={() => onClick('all')}>
+      <ButtonStyled
+        active={selectedTag === 'all'}
+        onClick={() => onClick('all')}
+      >
         all
       </ButtonStyled>
       {tags.map(tag => (
-        <ButtonStyled active={selectedTag === tag} onClick={() => onClick(tag)} key={tag}>
+        <ButtonStyled
+          active={selectedTag === tag}
+          onClick={() => onClick(tag)}
+          key={tag}
+        >
           {tag}
         </ButtonStyled>
       ))}

@@ -3,7 +3,14 @@ import styled from 'styled-components/macro'
 import Markdown from '../common/Markdown'
 import Tag from './Tag'
 
-export default function Card({ title, question, answer, isBookmarked, onBookmarkClick, tags }) {
+export default function Card({
+  title,
+  question,
+  answer,
+  isBookmarked,
+  onBookmarkClick,
+  tags,
+}) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
 
   function toggleAnswer() {
@@ -21,7 +28,9 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}
-      <ul css="padding: 0">{tags && tags.map(tag => <Tag key={tag} text={tag} />)}</ul>
+      <ul css="padding: 0">
+        {tags && tags.map(tag => <Tag key={tag} text={tag} />)}
+      </ul>
     </CardStyled>
   )
 

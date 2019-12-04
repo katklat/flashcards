@@ -7,13 +7,6 @@ router.get('/', (req, res) => {
     .catch(err => res.json(err))
 })
 
-router.get('/delete-test-cards', (req, res) => {
-  Card.find({ title: 'TestHeadline' }).then(cards => {
-    const promises = cards.map(card => card.remove())
-    Promise.all(promises).then(() => res.json({ success: true }))
-  })
-})
-
 router.get('/:id', (req, res) => {
   Card.find({ id: req.params.id })
     .then(cards => res.json(cards))
