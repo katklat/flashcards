@@ -6,6 +6,7 @@ export default function CreatePage({ onSubmit, title }) {
   const [card, setCard] = useState({})
 
   function handleSubmit(event) {
+    event.preventDefault()
     const form = event.target
     onSubmit(card)
     form.reset()
