@@ -1,5 +1,7 @@
-const router = require('express').Router()
-const Card = require('../models/Card')
+import { Router } from 'express'
+import Card from '../models/Card'
+
+const router = Router()
 
 router.get('/', (req, res) => {
   Card.find()
@@ -37,4 +39,4 @@ router.delete('/all', (req, res) => {
     .catch(err => res.json(err))
 })
 
-module.exports = router
+export default router

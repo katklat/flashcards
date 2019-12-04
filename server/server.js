@@ -1,8 +1,9 @@
-const express = require('express')
-const cors = require('cors')
+import cors from 'cors'
+import express from 'express'
+import mongoose from 'mongoose'
+import cardsRoute from './routes/cards'
 const server = express()
 
-const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/flashcards-react-jerry', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -13,4 +14,4 @@ server.use(express.json())
 server.use(cors())
 server.set('json spaces', 2)
 
-server.use('/cards', require('./routes/cards'))
+server.use('/cards', cardsRoute)
