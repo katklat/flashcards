@@ -1,41 +1,36 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import Page from '../common/Page'
-import Markdown from '../common/Markdown'
-
-export default function SettingsPage({ onSubmit, title }) {
-  const [answer, setAnswer] = useState('')
+import Card from '../cards/Card'
+export default function CreatePage({ onSubmit, title }) {
+  const [card, setCard] = useState({})
 
   function handleSubmit(event) {
-    event.preventDefault()
     const form = event.target
+    onSubmit(card)
+    form.reset()
+    form.title.focus()
+  }
+
+  function handleChange(event) {
+    const form = event.currentTarget
     const formData = new FormData(form)
     const data = Object.fromEntries(formData)
     data.tags = data.tags
       .split(',')
       .map(t => t.trim())
       .filter(t => t.length)
-    onSubmit(data)
-    form.reset()
-    form.title.focus()
+    setCard(data)
   }
 
-  const AnswerPreview = () => (
-    <section css="color: #333">
-      <small>
-        <em>Preview:</em>
-      </small>
-      <br />
-      <Markdown>{answer}</Markdown>
-    </section>
-  )
+  const hasCardContent = !!Object.values(card).join('').length
 
   return (
     <Page title={title}>
-      <FormStyled onSubmit={handleSubmit}>
+      <FormStyled onSubmit={handleSubmit} onChange={handleChange}>
         <LabelStyled>
           Title
-          <input name="title" />
+          <input autoFocus name="title" />
         </LabelStyled>
         <LabelStyled>
           Question
@@ -45,17 +40,14 @@ export default function SettingsPage({ onSubmit, title }) {
           <div>
             Answer <small>(Markdown)</small>
           </div>
-          <textarea
-            name="answer"
-            onChange={event => setAnswer(event.target.value)}
-          />
+          <textarea name="answer" />
         </LabelStyled>
-        {answer && <AnswerPreview />}
         <LabelStyled>
           Tags
           <input name="tags" />
         </LabelStyled>
         <ButtonStyled>Create card</ButtonStyled>
+        {hasCardContent && <Card {...card} />}
       </FormStyled>
     </Page>
   )

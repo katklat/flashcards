@@ -31,4 +31,10 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.json(err))
 })
 
+router.delete('/all', (req, res) => {
+  Card.deleteMany()
+    .then(card => res.json(card))
+    .catch(err => res.json(err))
+})
+
 module.exports = router

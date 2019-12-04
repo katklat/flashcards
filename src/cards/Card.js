@@ -19,7 +19,7 @@ export default function Card({
 
   function handleBookmarkClick(event) {
     event.stopPropagation()
-    onBookmarkClick()
+    onBookmarkClick && onBookmarkClick()
   }
 
   return (

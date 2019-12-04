@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import CardPage from '../cards/CardPage'
-import Navigation from './Navigation'
+import Navigation from '../common/Navigation'
 import { getCards, patchCard, postCard } from '../cards/services'
-import SettingsPage from '../settings/SettingsPage'
+import CreatePage from '../create/CreatePage'
 
 export default function App() {
   const [cards, setCards] = useState([])
@@ -33,10 +33,8 @@ export default function App() {
           <Route path="/practice" render={PracticePage} />
           <Route path="/bookmarks" render={BookmarksPage} />
           <Route
-            path="/settings"
-            render={() => (
-              <SettingsPage title="Settings" onSubmit={createCard} />
-            )}
+            path="/create"
+            render={() => <CreatePage title="Settings" onSubmit={createCard} />}
           />
         </Switch>
         <Navigation />
