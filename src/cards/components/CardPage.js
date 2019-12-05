@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import Card from './Card'
-import Page from '../common/Page'
+import Page from '../../common/Page'
 import TagFilter from './TagFilter'
 
 export default function CardPage({

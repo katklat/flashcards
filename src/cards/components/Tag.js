@@ -6,15 +6,16 @@ Tag.propTypes = {
   text: PropTypes.string,
 }
 
-export default function Tag({ text }) {
-  return <TagStyled>{text}</TagStyled>
+export default function Tag({ text, color }) {
+  return <TagStyled color={color}>{text}</TagStyled>
 }
 
 const TagStyled = styled.li`
   display: inline-block;
-  padding: 2px 10px;
-  background: #eee;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  background: ${props => props.color || '#eee'};
   border: 1px solid #ccc;
   border-radius: 3px;
-  margin-right: 10px;
+  margin-right: 4px;
 `

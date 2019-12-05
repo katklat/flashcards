@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import CardPage from '../cards/CardPage'
+import CardPage from '../cards/components/CardPage'
 import Navigation from '../common/Navigation'
 import { getCards, patchCard, postCard } from '../cards/services'
 import CreatePage from '../create/CreatePage'
@@ -30,8 +30,8 @@ export default function App() {
       <AppStyled>
         <Switch>
           <Route exact path="/" render={HomePage} />
-          <Route path="/practice" render={PracticePage} />
           <Route path="/bookmarks" render={BookmarksPage} />
+          <Route path="/practice" render={PracticePage} />
           <Route
             path="/create"
             render={() => <CreatePage title="Settings" onSubmit={createCard} />}

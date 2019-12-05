@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import Page from '../common/Page'
-import Card from '../cards/Card'
+import Card from '../cards/components/Card'
+
 export default function CreatePage({ onSubmit, title }) {
   const [card, setCard] = useState({})
 

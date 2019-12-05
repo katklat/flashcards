@@ -1,10 +1,6 @@
 import mongoose from 'mongoose'
 
 const Card = mongoose.model('Card', {
-  title: {
-    type: String,
-    required: true,
-  },
   question: {
     type: String,
     required: true,
