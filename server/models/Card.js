@@ -10,6 +10,8 @@ const Card = mongoose.model('Card', {
     required: true,
   },
   isBookmarked: Boolean,
+  isKnown: Boolean,
+  isNotKnown: Boolean,
   tags: {
     type: [String],
     lowercase: true,

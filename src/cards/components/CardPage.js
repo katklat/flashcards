@@ -9,6 +9,8 @@ export default function CardPage({
   title,
   onBookmarkClick,
   onSelectTag,
+  onKnown,
+  onNotKnown,
   tags,
   selectedTag,
 }) {
@@ -18,9 +20,11 @@ export default function CardPage({
       <Scroller>
         {cards.map(card => (
           <Card
+            onKnown={() => onKnown(card)}
+            onNotKnown={() => onNotKnown(card)}
             key={card._id}
-            {...card}
             onBookmarkClick={() => onBookmarkClick(card)}
+            {...card}
           />
         ))}
       </Scroller>

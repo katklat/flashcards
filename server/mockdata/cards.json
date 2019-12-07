@@ -1,30 +1,30 @@
 [
   {
     "question": "Wie erzeuge ich ein neues HTML-Element in JavaScript?",
-    "answer": "document.createElement('div')",
+    "answer": "`document.createElement('div')`",
     "tags": ["js", "basics"],
     "isBookmarked": true
   },
   {
     "question": "Wie füge ich ein Element über einem anderen Element ein?",
-    "answer": ".insertAdjacentElement(position, element)",
+    "answer": "`.insertAdjacentElement(position, element)`",
     "tags": ["js", "basics"],
     "doPractice": true
   },
   {
     "question": "Wie füge ich HTML in ein vorhandenes HTML-Element ein?",
-    "answer": ".innerHTML",
+    "answer": "`.innerHTML=`",
     "tags": ["js", "basics"],
     "isBookmarked": true
   },
   {
     "question": "Wie logge ich alle Strings aus einem Array mit mehreren Strings aus?",
-    "answer": "list.forEach(element => console.log(element))",
+    "answer": "```js\n\nlist\n.forEach(element => console.log(element))```",
     "tags": ["js", "basics"]
   },
   {
     "question": "Wenn der User runterscrollt, soll die Schriftgröße der Überschrift größer werden!",
-    "answer": "const el = document.querySelector(h1) -> window.addEventListener(\"scroll\", function) -> el.style.fontSize = \"irgendwas Größeres\"",
+    "answer": "```const el = document.querySelector(h1) ->\nwindow.addEventListener(\"scroll\", function) -> el.style.fontSize = \"irgendwas Größeres\"```",
     "tags": ["css", "basics"]
   },
   {

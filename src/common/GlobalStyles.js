@@ -10,6 +10,7 @@ export default createGlobalStyle`
     background: #eee;
     font-family: sans-serif;
     font-size: 18px;
+    line-height: 1.4;
     overflow: hidden;
     height: 100vh;
   }

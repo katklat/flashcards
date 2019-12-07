@@ -4,7 +4,9 @@ import mongoose from 'mongoose'
 import cardsRoute from './routes/cards'
 const server = express()
 
-mongoose.connect('mongodb://localhost:27017/flashcards-react-jerry', {
+const { DB_NAME } = process.env
+
+mongoose.connect('mongodb://localhost:27017/' + DB_NAME, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

@@ -1,25 +1,32 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import Markdown from '../../common/Markdown'
 import Tag from './Tag'
-import useAnswerHeight from '../useAnswerHeight'
+import useHeight from '../useHeight'
+import { useSpring, animated } from 'react-spring'
 
 export default function Card({
   question,
   answer,
   isBookmarked,
   onBookmarkClick,
+  onKnown,
+  onNotKnown,
   tags,
 }) {
-  const answerRef = useRef()
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
-  const answerHeight = useAnswerHeight(answerRef)
+  const { height, bind } = useHeight()
+  const answerStyle = useSpring({
+    height: isAnswerVisible ? height : 0,
+  })
 
   return (
     <CardStyled onClick={toggleAnswer}>
       <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
-      <p>{question}</p>
-      {isAnswerVisible && <Answer ref={answerRef}>{answer}</Answer>}
+      {question}
+      <Answer style={answerStyle} bind={bind} content={answer}>
+        <Feedback onKnown={onKnown} onNotKnown={onNotKnown} />
+      </Answer>
       <ul css="padding: 0; margin: 0">
         {tags && tags.map(tag => <Tag key={tag} text={tag} />)}
       </ul>
@@ -36,37 +43,53 @@ export default function Card({
   }
 }
 
-const Answer = styled.div.attrs({ children: <Markdown /> })`
-  font-family: serif;
-  word-break: break-word;
-  padding: 20px 10px;
-  background: #f2f2f2;
-  margin: 0 -20px 20px;
-  position: relative;
-  transition: height 0.3s;
+function Answer({ children, style, bind, content }) {
+  const Outer = styled(animated.div)`
+    word-break: break-word;
+    background: #f2f2f2;
+    margin: 10px -20px 10px;
+    position: relative;
+    overflow: hidden;
 
-  &::before {
-    content: '';
-    display: block;
-    height: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(#0002, #0000);
-  }
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+    }
 
-  &::after {
-    content: '';
-    display: block;
-    height: 4px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(#0000, #0001);
-  }
-`
+    &::before {
+      height: 8px;
+      background: linear-gradient(#0002, #0000);
+    }
+
+    &::after {
+      height: 8px;
+      bottom: 0;
+      background: linear-gradient(#0000, #0001);
+    }
+  `
+
+  return (
+    <Outer style={style} {...bind}>
+      <div css="margin: 20px;">
+        <Markdown>{content}</Markdown>
+        {children}
+      </div>
+    </Outer>
+  )
+}
+
+function Feedback({ onKnown, onNotKnown }) {
+  return (
+    <div>
+      <button onClick={onKnown}>I knew it!</button>
+      <button onClick={onNotKnown}>Whaaat?</button>
+    </div>
+  )
+}
+
 const BookmarkStyled = styled.div`
   height: 30px;
   border: 10px solid ${props => (props.active ? 'hotpink' : 'lightgray')};
