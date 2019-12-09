@@ -23,7 +23,7 @@ export default function App() {
   }, [])
 
   const HomePage = withCardPage('Homepage')
-  const PracticePage = withCardPage('Practice', 'doPractice')
+  const PracticePage = withCardPage('Practice', 'doPractice') // TODO: implement isKnown / isNotKnown
   const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
 
   return (
@@ -48,6 +48,7 @@ export default function App() {
       const filteredCards = filterProp
         ? cards.filter(card => card[filterProp])
         : cards
+
       const filteredByTag =
         selectedTag === 'all'
           ? filteredCards
