@@ -9,7 +9,6 @@ export default function HomePage({ cards, onBookmarkClick }) {
       {cards.map(card => (
         <Card
           key={card._id}
-          title={card.title}
           question={card.question}
           answer={card.answer}
           onBookmarkClick={() => onBookmarkClick(card)}

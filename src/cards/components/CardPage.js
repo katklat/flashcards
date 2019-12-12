@@ -9,8 +9,8 @@ export default function CardPage({
   title,
   onBookmarkClick,
   onSelectTag,
-  onKnown,
-  onNotKnown,
+  onTogglePractice,
+  doesNeedPractice,
   tags,
   selectedTag,
 }) {
@@ -20,8 +20,10 @@ export default function CardPage({
       <Scroller>
         {cards.map(card => (
           <Card
-            onKnown={() => onKnown(card)}
-            onNotKnown={() => onNotKnown(card)}
+            onTogglePractice={needsPractice =>
+              onTogglePractice(card._id, needsPractice)
+            }
+            doesNeedPractice={doesNeedPractice}
             key={card._id}
             onBookmarkClick={() => onBookmarkClick(card)}
             {...card}

@@ -10,8 +10,8 @@ export default function Card({
   answer,
   isBookmarked,
   onBookmarkClick,
-  onKnown,
-  onNotKnown,
+  onTogglePractice,
+  doesNeedPractice,
   tags,
 }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
@@ -25,7 +25,9 @@ export default function Card({
       <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
       {question}
       <Answer style={answerStyle} bind={bind} content={answer}>
-        <Feedback onKnown={onKnown} onNotKnown={onNotKnown} />
+        <Feedback onTogglePractice={onTogglePractice} />
+        {doesNeedPractice != null &&
+          (doesNeedPractice ? '(Needs practice)' : '(I knew this one)')}
       </Answer>
       <ul css="padding: 0; margin: 0">
         {tags && tags.map(tag => <Tag key={tag} text={tag} />)}
@@ -81,11 +83,19 @@ function Answer({ children, style, bind, content }) {
   )
 }
 
-function Feedback({ onKnown, onNotKnown }) {
+function Feedback({ onTogglePractice }) {
   return (
     <div>
-      <button onClick={onKnown}>I knew it!</button>
-      <button onClick={onNotKnown}>Whaaat?</button>
+      <button onClick={() => onTogglePractice(false)}>
+        <span role="img" aria-label="I knew it">
+          🤓
+        </span>
+      </button>
+      <button onClick={() => onTogglePractice(true)}>
+        <span role="img" aria-label="Did not know">
+          🤯
+        </span>
+      </button>
     </div>
   )
 }

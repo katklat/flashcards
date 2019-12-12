@@ -23,7 +23,7 @@ export default function App() {
   }, [])
 
   const HomePage = withCardPage('Homepage')
-  const PracticePage = withCardPage('Practice', 'doPractice') // TODO: implement isKnown / isNotKnown
+  const PracticePage = withCardPage('Practice', 'doPractice')
   const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
 
   return (
@@ -63,11 +63,16 @@ export default function App() {
           selectedTag={selectedTag}
           onBookmarkClick={handleBookmarkClick}
           onSelectTag={setSelectedTag}
+          onTogglePractice={togglePractice}
           onKnown={handleKnown}
           onNotKnown={handleNotKnown}
         />
       )
     }
+  }
+
+  function togglePractice(id) {
+    console.log(id, 'togglePractice')
   }
 
   function createCard(cardData) {
