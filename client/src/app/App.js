@@ -76,8 +76,10 @@ export default function App() {
     })
   }
 
-  async function togglePractice(id, needsPractice) {
-    const updatedCard = await patchCard(id, { needsPractice })
+  async function togglePractice(card, needsPractice) {
+    const newValue = card.needsPractice === needsPractice ? null : needsPractice
+    const id = card._id
+    const updatedCard = await patchCard(id, { needsPractice: newValue })
     setCards(
       produce(cards, draft => {
         const card = draft.find(card => card._id === id)

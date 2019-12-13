@@ -11,18 +11,14 @@ export default function Answer({
   bind,
   content,
 }) {
-  const needsPracticeComment = new Map([
-    [null, '(noch nicht gelernt)'],
-    [true, '(nicht gewusst)'],
-    [false, '(gewusst)'],
-  ]).get(needsPractice)
-
   return (
     <Outer style={style} {...bind}>
       <div css="margin: 20px;">
         <Markdown>{content}</Markdown>
-        <Feedback onTogglePractice={onTogglePractice} />
-        {needsPracticeComment}
+        <Feedback
+          onTogglePractice={onTogglePractice}
+          needsPractice={needsPractice}
+        />
       </div>
     </Outer>
   )

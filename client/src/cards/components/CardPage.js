@@ -21,7 +21,7 @@ export default function CardPage({
         {cards.map(card => (
           <Card
             onTogglePractice={needsPractice =>
-              onTogglePractice(card._id, needsPractice)
+              onTogglePractice(card, needsPractice)
             }
             needsPractice={needsPractice}
             key={card._id}
