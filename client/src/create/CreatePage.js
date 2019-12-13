@@ -31,12 +31,8 @@ export default function CreatePage({ onSubmit, title }) {
     <Page title={title}>
       <FormStyled onSubmit={handleSubmit} onChange={handleChange}>
         <LabelStyled>
-          Title
-          <input autoFocus name="title" />
-        </LabelStyled>
-        <LabelStyled>
           Question
-          <textarea name="question" />
+          <textarea autoFocus name="question" />
         </LabelStyled>
         <LabelStyled>
           <div>

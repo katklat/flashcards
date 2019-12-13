@@ -64,15 +64,10 @@ export default function App() {
           onBookmarkClick={handleBookmarkClick}
           onSelectTag={setSelectedTag}
           onTogglePractice={togglePractice}
-          onKnown={handleKnown}
           onNotKnown={handleNotKnown}
         />
       )
     }
-  }
-
-  function togglePractice(id) {
-    console.log(id, 'togglePractice')
   }
 
   function createCard(cardData) {
@@ -81,12 +76,12 @@ export default function App() {
     })
   }
 
-  async function handleKnown(card) {
-    const updatedCard = await patchCard(card._id, { isKnown: true })
+  async function togglePractice(id, needsPractice) {
+    const updatedCard = await patchCard(id, { needsPractice })
     setCards(
       produce(cards, draft => {
-        const card = draft.find(c => c._id === updatedCard._id)
-        card.isKnown = true
+        const card = draft.find(card => card._id === id)
+        card.needsPractice = updatedCard.needsPractice
       })
     )
   }

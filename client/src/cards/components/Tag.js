@@ -13,7 +13,7 @@ export default function Tag({ text, color }) {
 const TagStyled = styled.li`
   display: inline-block;
   font-size: 0.8em;
-  padding: 2px 6px;
+  padding: 0 6px;
   background: ${props => props.color || '#eee'};
   border: 1px solid #ccc;
   border-radius: 3px;

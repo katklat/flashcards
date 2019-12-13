@@ -10,7 +10,7 @@ export default function CardPage({
   onBookmarkClick,
   onSelectTag,
   onTogglePractice,
-  doesNeedPractice,
+  needsPractice,
   tags,
   selectedTag,
 }) {
@@ -23,7 +23,7 @@ export default function CardPage({
             onTogglePractice={needsPractice =>
               onTogglePractice(card._id, needsPractice)
             }
-            doesNeedPractice={doesNeedPractice}
+            needsPractice={needsPractice}
             key={card._id}
             onBookmarkClick={() => onBookmarkClick(card)}
             {...card}
