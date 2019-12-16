@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import useHeight from '../useHeight'
 import Tag from './Tag'
 import Answer from './Answer'
+import Markdown from '../../common/Markdown'
 
 export default function Card({
   question,
@@ -31,7 +32,7 @@ export default function Card({
   return (
     <CardStyled onClick={toggleAnswer}>
       <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
-      {question}
+      <Markdown>{question}</Markdown>
       <Answer
         showPracticeButtons={showPracticeButtons}
         onChangeNeedsPractice={onChangeNeedsPractice}
