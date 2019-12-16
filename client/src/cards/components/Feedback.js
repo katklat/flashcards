@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function Feedback({ onTogglePractice, needsPractice }) {
+export default function Feedback({ onChangeNeedsPractice, needsPractice }) {
   function withClickHandler(needsPractice) {
     return event => {
       event.stopPropagation()
-      onTogglePractice(needsPractice)
+      onChangeNeedsPractice(needsPractice)
     }
   }
 

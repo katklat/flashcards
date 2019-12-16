@@ -5,7 +5,7 @@ import Markdown from '../../common/Markdown'
 import Feedback from './Feedback'
 
 export default function Answer({
-  onTogglePractice,
+  onChangeNeedsPractice,
   needsPractice,
   style,
   bind,
@@ -16,7 +16,7 @@ export default function Answer({
       <div css="margin: 20px;">
         <Markdown>{content}</Markdown>
         <Feedback
-          onTogglePractice={onTogglePractice}
+          onChangeNeedsPractice={onChangeNeedsPractice}
           needsPractice={needsPractice}
         />
       </div>

@@ -10,7 +10,7 @@ export default function Card({
   answer,
   isBookmarked,
   onBookmarkClick,
-  onTogglePractice,
+  onChangeNeedsPractice,
   needsPractice,
   tags,
 }) {
@@ -25,7 +25,7 @@ export default function Card({
       <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
       {question}
       <Answer
-        onTogglePractice={onTogglePractice}
+        onChangeNeedsPractice={onChangeNeedsPractice}
         needsPractice={needsPractice}
         style={answerStyle}
         bind={bind}

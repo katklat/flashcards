@@ -63,7 +63,7 @@ export default function App() {
           selectedTag={selectedTag}
           onBookmarkClick={handleBookmarkClick}
           onSelectTag={setSelectedTag}
-          onTogglePractice={togglePractice}
+          onChangeNeedsPractice={changeNeedsPractice}
           onNotKnown={handleNotKnown}
         />
       )
@@ -76,7 +76,7 @@ export default function App() {
     })
   }
 
-  async function togglePractice(card, needsPractice) {
+  async function changeNeedsPractice(card, needsPractice) {
     const newValue = card.needsPractice === needsPractice ? null : needsPractice
     const id = card._id
     const updatedCard = await patchCard(id, { needsPractice: newValue })
