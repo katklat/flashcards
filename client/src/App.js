@@ -1,28 +1,31 @@
 import { produce } from 'immer'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import CardPage from '../cards/components/CardPage'
-import { getCards, patchCard, postCard } from '../cards/services'
-import Navigation from '../common/Navigation'
-import CreatePage from '../create/CreatePage'
+import { getCards, patchCard, postCard } from './Card/services'
+import Navigation from './common/Navigation'
+import CreatePage from './pages/CreatePage'
+import CardPage from './pages/CardPage'
 
 export default function App() {
   const [cards, setCards] = useState([])
   const [selectedTag, setSelectedTag] = useState('all')
-
-  const allTags = Array.from(
-    cards.reduce((prev, card) => {
-      card.tags && card.tags.forEach(tag => prev.add(tag))
-      return prev
-    }, new Set())
+  const allTags = useMemo(
+    () =>
+      Array.from(
+        cards.reduce((prev, card) => {
+          card.tags && card.tags.forEach(tag => prev.add(tag))
+          return prev
+        }, new Set())
+      ),
+    [cards]
   )
 
   useEffect(() => {
     getCards().then(setCards)
   }, [])
 
-  const HomePage = withCardPage('Homepage')
+  const Homepage = withCardPage('Homepage')
   const PracticePage = withCardPage('Practice', 'doPractice')
   const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
 
@@ -30,7 +33,7 @@ export default function App() {
     <Router>
       <AppStyled>
         <Switch>
-          <Route exact path="/" render={HomePage} />
+          <Route exact path="/" render={Homepage} />
           <Route path="/bookmarks" render={BookmarksPage} />
           <Route path="/practice" render={PracticePage} />
           <Route
@@ -42,6 +45,12 @@ export default function App() {
       </AppStyled>
     </Router>
   )
+
+  function createCard(cardData) {
+    postCard(cardData).then(card => {
+      setCards([...cards, card])
+    })
+  }
 
   function withCardPage(title, filterProp) {
     return () => {
@@ -67,12 +76,6 @@ export default function App() {
         />
       )
     }
-  }
-
-  function createCard(cardData) {
-    postCard(cardData).then(card => {
-      setCards([...cards, card])
-    })
   }
 
   async function changeNeedsPractice(card, needsPractice) {

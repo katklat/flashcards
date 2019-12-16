@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSpring } from 'react-spring'
 import styled from 'styled-components/macro'
-import useHeight from '../useHeight'
+import useHeight from './useHeight'
 import Tag from './Tag'
 import Answer from './Answer'
-import Markdown from '../../common/Markdown'
+import Markdown from '../common/Markdown'
 
 export default function Card({
   question,

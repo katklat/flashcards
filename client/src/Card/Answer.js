@@ -1,7 +1,7 @@
 import React from 'react'
 import { animated } from 'react-spring'
 import styled from 'styled-components/macro'
-import Markdown from '../../common/Markdown'
+import Markdown from '../common/Markdown'
 import Feedback from './Feedback'
 
 export default function Answer({

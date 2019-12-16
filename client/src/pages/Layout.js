@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function Page({ title, children }) {
+export default function Layout({ title, children }) {
   return (
     <PageStyled>
       <Header>{title}</Header>

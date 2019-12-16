@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import Card from './Card'
-import Page from '../../common/Page'
-import TagFilter from './TagFilter'
+import Card from '../Card/Card'
+import Layout from './Layout'
+import TagFilter from '../common/TagFilter'
 
 export default function CardPage({
   cards,
@@ -13,10 +13,9 @@ export default function CardPage({
   needsPractice,
   tags,
   selectedTag,
-  setIsAnswerVisible,
 }) {
   return (
-    <Page title={title}>
+    <Layout title={title}>
       <TagFilter tags={tags} selectedTag={selectedTag} onClick={onSelectTag} />
       <Scroller>
         {cards.map(card => (
@@ -32,7 +31,7 @@ export default function CardPage({
           />
         ))}
       </Scroller>
-    </Page>
+    </Layout>
   )
 }
 
