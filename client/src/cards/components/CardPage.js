@@ -13,6 +13,7 @@ export default function CardPage({
   needsPractice,
   tags,
   selectedTag,
+  setIsAnswerVisible,
 }) {
   return (
     <Page title={title}>
@@ -26,6 +27,7 @@ export default function CardPage({
             needsPractice={needsPractice}
             key={card._id}
             onBookmarkClick={() => onBookmarkClick(card)}
+            showPracticeButtons={true}
             {...card}
           />
         ))}

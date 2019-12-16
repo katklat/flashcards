@@ -1,11 +1,11 @@
+import { produce } from 'immer'
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import CardPage from '../cards/components/CardPage'
-import Navigation from '../common/Navigation'
 import { getCards, patchCard, postCard } from '../cards/services'
+import Navigation from '../common/Navigation'
 import CreatePage from '../create/CreatePage'
-import { produce } from 'immer'
 
 export default function App() {
   const [cards, setCards] = useState([])
@@ -64,7 +64,6 @@ export default function App() {
           onBookmarkClick={handleBookmarkClick}
           onSelectTag={setSelectedTag}
           onChangeNeedsPractice={changeNeedsPractice}
-          onNotKnown={handleNotKnown}
         />
       )
     }
@@ -84,17 +83,6 @@ export default function App() {
       produce(cards, draft => {
         const card = draft.find(card => card._id === id)
         card.needsPractice = updatedCard.needsPractice
-      })
-    )
-  }
-
-  async function handleNotKnown(card) {
-    const updatedCard = await patchCard(card._id, { isKnown: true })
-
-    setCards(
-      produce(cards, draft => {
-        const card = draft.find(c => c._id === updatedCard._id)
-        card.isKnown = false
       })
     )
   }

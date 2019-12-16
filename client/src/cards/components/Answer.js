@@ -10,15 +10,18 @@ export default function Answer({
   style,
   bind,
   content,
+  showPracticeButtons = true,
 }) {
   return (
     <Outer style={style} {...bind}>
       <div css="margin: 20px;">
         <Markdown>{content}</Markdown>
-        <Feedback
-          onChangeNeedsPractice={onChangeNeedsPractice}
-          needsPractice={needsPractice}
-        />
+        {showPracticeButtons && (
+          <Feedback
+            onChangeNeedsPractice={onChangeNeedsPractice}
+            needsPractice={needsPractice}
+          />
+        )}
       </div>
     </Outer>
   )

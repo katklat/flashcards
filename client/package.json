@@ -39,10 +39,8 @@
       "react-app",
       "plugin:cypress/recommended"
     ],
-    "overrides": {
-      "rules": {
-        "no-unused-expressions": "off"
-      }
+    "rules": {
+      "no-unused-expressions": "off"
     }
   },
   "browserslist": {

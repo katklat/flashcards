@@ -5,13 +5,13 @@ import { useLayoutEffect, useState, useRef } from 'react'
  *    const {height, bind} = useHeight()
  *    <div {...bind} style={{height: isActive ? height : 0}}>Measured element</div>
  */
-export default function useHeight() {
-  const [calculatedHeight, setCalculatedHeight] = useState(undefined)
+export default function useHeight(deps) {
+  const [calculatedHeight, setCalculatedHeight] = useState(0)
   const ref = useRef()
 
   useLayoutEffect(() => {
     const answerEl = ref.current
-    if (!answerEl) return 0
+    if (!answerEl) return
 
     const originals = {
       transition: answerEl.style.transition,
@@ -23,6 +23,6 @@ export default function useHeight() {
     answerEl.style.transition = originals.transition
     answerEl.style.height = originals.height
     setCalculatedHeight(height)
-  }, [ref])
+  }, [deps, ref])
   return { height: calculatedHeight, bind: { ref } }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSpring } from 'react-spring'
 import styled from 'styled-components/macro'
 import useHeight from '../useHeight'
@@ -13,18 +13,27 @@ export default function Card({
   onChangeNeedsPractice,
   needsPractice,
   tags,
+  forceIsAnswerVisible,
+  showPracticeButtons,
 }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
-  const { height, bind } = useHeight()
+  const { height, bind } = useHeight([showPracticeButtons, answer])
   const answerStyle = useSpring({
     height: isAnswerVisible ? height : 0,
   })
+
+  useEffect(() => {
+    setIsAnswerVisible(
+      forceIsAnswerVisible == null ? isAnswerVisible : forceIsAnswerVisible
+    )
+  }, [forceIsAnswerVisible, isAnswerVisible])
 
   return (
     <CardStyled onClick={toggleAnswer}>
       <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
       {question}
       <Answer
+        showPracticeButtons={showPracticeButtons}
         onChangeNeedsPractice={onChangeNeedsPractice}
         needsPractice={needsPractice}
         style={answerStyle}
@@ -38,7 +47,7 @@ export default function Card({
   )
 
   function toggleAnswer() {
-    setIsAnswerVisible(!isAnswerVisible)
+    setIsAnswerVisible && setIsAnswerVisible(!isAnswerVisible)
   }
 
   function handleBookmarkClick(event) {

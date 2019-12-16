@@ -29,6 +29,10 @@ export default function TagFilter({ onClick, tags, selectedTag }) {
   )
 }
 
+function select(propName, first, second) {
+  return props => (props[propName] ? first : second)
+}
+
 const Grid = styled.section`
   overflow-y: scroll;
   scroll-behavior: smooth;
@@ -39,10 +43,6 @@ const Grid = styled.section`
   gap: 1px;
   width: 100%;
 `
-
-function select(propName, first, second) {
-  return props => (props[propName] ? first : second)
-}
 
 const ButtonStyled = styled.button`
   background: ${select('active', 'hotpink', '#444')};

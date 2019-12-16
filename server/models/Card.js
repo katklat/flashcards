@@ -12,9 +12,13 @@ const Card = mongoose.model('Card', {
   isBookmarked: Boolean,
   needsPractice: Boolean,
   tags: {
+    set: tags =>
+      tags
+        .map(t => t.trim())
+        .filter(t => t.length)
+        .sort(),
     type: [String],
-    lowercase: true,
-    required: true,
+    default: [],
   },
 })
 
