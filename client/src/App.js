@@ -26,7 +26,7 @@ export default function App() {
   }, [])
 
   const Homepage = withCardPage('Homepage')
-  const PracticePage = withCardPage('Practice', 'doPractice')
+  const PracticePage = withCardPage('Practice', 'needsPractice')
   const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
 
   return (
@@ -55,7 +55,7 @@ export default function App() {
   function withCardPage(title, filterProp) {
     return () => {
       const filteredCards = filterProp
-        ? cards.filter(card => card[filterProp])
+        ? cards.filter(card => card[filterProp] != null)
         : cards
 
       const filteredByTag =
@@ -92,7 +92,7 @@ export default function App() {
 
   async function handleBookmarkClick(card) {
     const updatedCard = await patchCard(card._id, {
-      isBookmarked: !card.isBookmarked,
+      isBookmarked: card.isBookmarked ? null : true,
     })
     setCards(
       produce(cards, draft => {
