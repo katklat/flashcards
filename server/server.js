@@ -4,15 +4,17 @@ import mongoose from 'mongoose'
 import cardsRoute from './routes/cards'
 const server = express()
 
-const { DB_NAME } = process.env
+const { DB_URL, PORT = 3333 } = process.env
 
-mongoose.connect('mongodb://localhost:27017/' + DB_NAME, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: true,
-})
+mongoose
+  .connect(DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+  })
+  .then(() => console.log('MongoDB ready.'))
 
-server.listen(3333, () => console.log('Server ready on port 3333'))
+server.listen(PORT, () => console.log(`Server ready on port ${PORT}`))
 server.use(express.json())
 server.use(cors())
 server.set('json spaces', 2)

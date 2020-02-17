@@ -1,49 +1,60 @@
 import { produce } from 'immer'
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { getCards, patchCard, postCard } from './Card/services'
 import Navigation from './common/Navigation'
+import useTags from './hooks/useTags'
+import BookmarkPage from './pages/BookmarkPage'
 import CreatePage from './pages/CreatePage'
-import CardPage from './pages/CardPage'
+import HomePage from './pages/HomePage'
+import PracticePage from './pages/PracticePage'
 
 export default function App() {
   const [cards, setCards] = useState([])
-  const [selectedTag, setSelectedTag] = useState('all')
-
-  const allTags = useMemo(
-    () =>
-      Array.from(
-        cards.reduce((prev, card) => {
-          card.tags && card.tags.forEach(tag => prev.add(tag))
-          return prev
-        }, new Set())
-      ),
-    [cards]
-  )
+  const { tags, selectTag, selectedTag, cardsByTag } = useTags(cards)
 
   useEffect(() => {
     getCards().then(setCards)
   }, [])
 
-  const Homepage = withCardPage('Homepage')
-  const PracticePage = withCardPage('Practice', 'needsPractice')
-  const BookmarksPage = withCardPage('Bookmarks', 'isBookmarked')
-
   return (
     <Router>
-      <AppStyled>
+      <AppGrid>
         <Switch>
-          <Route exact path="/" render={Homepage} />
-          <Route path="/bookmarks" render={BookmarksPage} />
-          <Route path="/practice" render={PracticePage} />
-          <Route
-            path="/create"
-            render={() => <CreatePage title="Settings" onSubmit={createCard} />}
-          />
+          <Route exact path="/">
+            <HomePage
+              tags={tags}
+              selectedTag={selectedTag}
+              cards={cardsByTag}
+              onBookmarkClick={handleBookmarkClick}
+              onSelectTag={selectTag}
+              setPractice={setPractice}
+            />
+          </Route>
+          <Route path="/bookmarks">
+            <BookmarkPage
+              tags={tags}
+              selectedTag={selectedTag}
+              cards={cardsByTag}
+              onBookmarkClick={handleBookmarkClick}
+              onSelectTag={selectTag}
+              setPractice={setPractice}
+            />
+          </Route>
+          <Route path="/practice">
+            <PracticePage
+              cards={cardsByTag}
+              onBookmarkClick={handleBookmarkClick}
+              setPractice={setPractice}
+            ></PracticePage>
+          </Route>
+          <Route path="/create">
+            <CreatePage title="Settings" onSubmit={createCard} />
+          </Route>
         </Switch>
         <Navigation />
-      </AppStyled>
+      </AppGrid>
     </Router>
   )
 
@@ -53,33 +64,7 @@ export default function App() {
     })
   }
 
-  function withCardPage(title, filterProp) {
-    return () => {
-      const filteredCards = filterProp
-        ? cards.filter(card => card[filterProp] != null)
-        : cards
-
-      const filteredByTag =
-        selectedTag === 'all'
-          ? filteredCards
-          : filteredCards.filter(
-              card => card.tags && card.tags.includes(selectedTag)
-            )
-      return (
-        <CardPage
-          title={title}
-          cards={filteredByTag}
-          tags={allTags}
-          selectedTag={selectedTag}
-          onBookmarkClick={handleBookmarkClick}
-          onSelectTag={setSelectedTag}
-          onChangeNeedsPractice={changeNeedsPractice}
-        />
-      )
-    }
-  }
-
-  async function changeNeedsPractice(card, needsPractice) {
+  async function setPractice(card, needsPractice) {
     const newValue = card.needsPractice === needsPractice ? null : needsPractice
     const id = card._id
     const updatedCard = await patchCard(id, { needsPractice: newValue })
@@ -104,7 +89,7 @@ export default function App() {
   }
 }
 
-const AppStyled = styled.div`
+const AppGrid = styled.div`
   display: grid;
   grid-template-rows: auto 48px;
   position: fixed;

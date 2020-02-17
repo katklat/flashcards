@@ -1,25 +1,27 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function Feedback({ onChangeNeedsPractice, needsPractice }) {
+export default function Feedback({ setPractice, needsPractice }) {
   function withClickHandler(needsPractice) {
     return event => {
       event.stopPropagation()
-      onChangeNeedsPractice(needsPractice)
+      setPractice(needsPractice)
     }
   }
 
   return (
     <Row>
+      Needs practice:
       <Link selected={needsPractice === true} onClick={withClickHandler(true)}>
-        Nicht gewusst
+        Yes
       </Link>
       <Link
         selected={needsPractice === false}
         onClick={withClickHandler(false)}
       >
-        Gewusst
+        No
       </Link>
+      <Link onClick={withClickHandler(null)}>Reset</Link>
     </Row>
   )
 }
@@ -27,6 +29,8 @@ export default function Feedback({ onChangeNeedsPractice, needsPractice }) {
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  border-top: 1px dashed #ddd;
+  padding-top: 20px;
 `
 
 const Link = styled.span`

@@ -5,7 +5,7 @@ import Markdown from '../common/Markdown'
 import Feedback from './Feedback'
 
 export default function Answer({
-  onChangeNeedsPractice,
+  setPractice,
   needsPractice,
   style,
   bind,
@@ -17,10 +17,9 @@ export default function Answer({
       <div css="margin: 20px;">
         <Markdown>{content}</Markdown>
         {showPracticeButtons && (
-          <Feedback
-            onChangeNeedsPractice={onChangeNeedsPractice}
-            needsPractice={needsPractice}
-          />
+          <>
+            <Feedback setPractice={setPractice} needsPractice={needsPractice} />
+          </>
         )}
       </div>
     </Outer>

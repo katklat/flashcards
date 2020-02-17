@@ -11,7 +11,7 @@ export default function Card({
   answer,
   isBookmarked,
   onBookmarkClick,
-  onChangeNeedsPractice,
+  setPractice,
   needsPractice,
   tags,
   forceIsAnswerVisible,
@@ -35,7 +35,7 @@ export default function Card({
       <Markdown>{question}</Markdown>
       <Answer
         showPracticeButtons={showPracticeButtons}
-        onChangeNeedsPractice={onChangeNeedsPractice}
+        setPractice={setPractice}
         needsPractice={needsPractice}
         style={answerStyle}
         bind={bind}

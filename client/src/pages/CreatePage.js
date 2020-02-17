@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import Page from './Layout'
+import Page from './PageLayout'
 import Card from '../Card/Card'
 
 export default function CreatePage({ onSubmit, title }) {
