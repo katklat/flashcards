@@ -14,12 +14,18 @@ export default function HomePage({
   return (
     <PageLayout title="Home">
       <TagFilter tags={tags} selectedTag={selectedTag} onClick={onSelectTag} />
-      <CardList
-        selectedTag={selectedTag}
-        cards={cards}
-        onBookmarkClick={onBookmarkClick}
-        setPractice={setPractice}
-      />
+      {cards.length ? (
+        <CardList
+          selectedTag={selectedTag}
+          cards={cards}
+          onBookmarkClick={onBookmarkClick}
+          setPractice={setPractice}
+        />
+      ) : (
+        <small style={{ margin: '40px auto' }}>
+          How about <a href="/create">creating some cards?</a>
+        </small>
+      )}
     </PageLayout>
   )
 }

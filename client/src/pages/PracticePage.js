@@ -6,21 +6,29 @@ import PageLayout from './PageLayout'
 export default function PracticePage({ cards, onBookmarkClick, setPractice }) {
   const practiceCards = cards.filter(card => card.needsPractice != null)
   return (
-    <PageLayout>
-      <PracticeTitle>Needs Practice</PracticeTitle>
-      <CardList
-        autoScroll={false}
-        cards={practiceCards.filter(card => card.needsPractice)}
-        onBookmarkClick={onBookmarkClick}
-        setPractice={setPractice}
-      ></CardList>
-      <PracticeTitle>Already learned</PracticeTitle>
-      <CardList
-        autoScroll={false}
-        cards={practiceCards.filter(card => card.needsPractice === false)}
-        onBookmarkClick={onBookmarkClick}
-        setPractice={setPractice}
-      ></CardList>
+    <PageLayout title="Practice">
+      {practiceCards.length ? (
+        <>
+          <PracticeTitle>Needs Practice:</PracticeTitle>
+          <CardList
+            autoScroll={false}
+            cards={practiceCards.filter(card => card.needsPractice)}
+            onBookmarkClick={onBookmarkClick}
+            setPractice={setPractice}
+          ></CardList>
+          <PracticeTitle>Already learned:</PracticeTitle>
+          <CardList
+            autoScroll={false}
+            cards={practiceCards.filter(card => card.needsPractice === false)}
+            onBookmarkClick={onBookmarkClick}
+            setPractice={setPractice}
+          ></CardList>
+        </>
+      ) : (
+        <small style={{ margin: '40px auto' }}>
+          No cards marked for practice.
+        </small>
+      )}
     </PageLayout>
   )
 }

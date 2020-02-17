@@ -8,7 +8,7 @@ TagFilter.propTypes = {
 }
 
 export default function TagFilter({ onClick, tags, selectedTag }) {
-  return (
+  return tags.length ? (
     <Grid>
       <ButtonStyled
         active={selectedTag === 'all'}
@@ -26,7 +26,7 @@ export default function TagFilter({ onClick, tags, selectedTag }) {
         </ButtonStyled>
       ))}
     </Grid>
-  )
+  ) : null
 }
 
 function select(propName, first, second) {

@@ -13,13 +13,23 @@ export default function BookmarkPage({
 }) {
   return (
     <PageLayout title="Bookmarks">
-      <TagFilter tags={tags} selectedTag={selectedTag} onClick={onSelectTag} />
-      <CardList
-        selectedTag={selectedTag}
-        cards={cards.filter(card => card.isBookmarked)}
-        onBookmarkClick={onBookmarkClick}
-        setPractice={setPractice}
-      />
+      {cards.some(card => card.isBookmarked) ? (
+        <>
+          <TagFilter
+            tags={tags}
+            selectedTag={selectedTag}
+            onClick={onSelectTag}
+          />
+          <CardList
+            selectedTag={selectedTag}
+            cards={cards.filter(card => card.isBookmarked)}
+            onBookmarkClick={onBookmarkClick}
+            setPractice={setPractice}
+          />
+        </>
+      ) : (
+        <small style={{ margin: '40px auto' }}>No cards bookmarked.</small>
+      )}
     </PageLayout>
   )
 }

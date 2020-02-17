@@ -8,9 +8,9 @@ export default function Navigation() {
       <LinkStyled exact to="/">
         Home
       </LinkStyled>
+      <LinkStyled to="/create">Create</LinkStyled>
       <LinkStyled to="/bookmarks">Bookmarks</LinkStyled>
       <LinkStyled to="/practice">Practice</LinkStyled>
-      <LinkStyled to="/create">Create</LinkStyled>
     </NavigationStyled>
   )
 }

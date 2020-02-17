@@ -12,19 +12,25 @@ export default function CreatePage({ onSubmit, title }) {
       <FormStyled onSubmit={handleSubmit} onChange={handleChange}>
         <LabelStyled>
           Question
-          <textarea autoFocus name="question" />
+          <textarea
+            autoFocus
+            name="question"
+            placeholder="What's the question?"
+          />
         </LabelStyled>
         <LabelStyled>
           <div>
             Answer <small>(Markdown)</small>
           </div>
-          <textarea name="answer" />
+          <textarea
+            name="answer"
+            placeholder="What's the answer? Use Markdown here."
+          />
         </LabelStyled>
         <LabelStyled>
           Tags
           <input name="tags" />
         </LabelStyled>
-        <ButtonStyled>Create card</ButtonStyled>
         {hasCardContent && (
           <Card
             {...card}
@@ -32,6 +38,7 @@ export default function CreatePage({ onSubmit, title }) {
             showPracticeButtons={false}
           />
         )}
+        <ButtonStyled>Create card</ButtonStyled>
       </FormStyled>
     </Page>
   )
@@ -41,6 +48,7 @@ export default function CreatePage({ onSubmit, title }) {
     const form = event.target
     onSubmit(card)
     form.reset()
+    setCard({})
     form[0] && form[0].focus()
   }
 
