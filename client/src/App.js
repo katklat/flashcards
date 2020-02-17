@@ -10,6 +10,7 @@ import CardPage from './pages/CardPage'
 export default function App() {
   const [cards, setCards] = useState([])
   const [selectedTag, setSelectedTag] = useState('all')
+
   const allTags = useMemo(
     () =>
       Array.from(
