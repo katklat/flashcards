@@ -80,6 +80,7 @@ export default function App() {
     const updatedCard = await patchCard(card._id, {
       isBookmarked: card.isBookmarked ? null : true,
     })
+
     setCards(
       produce(cards, draft => {
         const card = draft.find(card => card._id === updatedCard._id)

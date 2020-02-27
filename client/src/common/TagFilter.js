@@ -4,7 +4,8 @@ import styled from 'styled-components/macro'
 
 TagFilter.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
+  selectedTag: PropTypes.string,
 }
 
 export default function TagFilter({ onClick, tags, selectedTag }) {

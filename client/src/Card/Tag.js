@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 
 Tag.propTypes = {
   text: PropTypes.string,
+  color: PropTypes.string,
 }
 
 export default function Tag({ text, color }) {

@@ -19,9 +19,11 @@ export default function Card({
 }) {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
   const { height, bind } = useHeight([showPracticeButtons, answer])
-  const answerStyle = useSpring({
-    height: isAnswerVisible ? height : 0,
-  })
+  const answerStyle = {
+    ...useSpring({
+      height: isAnswerVisible ? height : 0,
+    }),
+  }
 
   useEffect(() => {
     setIsAnswerVisible(
@@ -31,7 +33,11 @@ export default function Card({
 
   return (
     <CardStyled onClick={toggleAnswer}>
-      <BookmarkStyled onClick={handleBookmarkClick} active={isBookmarked} />
+      <BookmarkStyled
+        onClick={handleBookmarkClick}
+        active={isBookmarked}
+        aria-label={isBookmarked ? 'Remove bookmark' : 'Add bookmark'}
+      />
       <Markdown>{question}</Markdown>
       <Answer
         showPracticeButtons={showPracticeButtons}
@@ -40,7 +46,7 @@ export default function Card({
         style={answerStyle}
         bind={bind}
         content={answer}
-      ></Answer>
+      />
       <ul css="padding: 0; margin: 0">
         {tags && tags.map(tag => <Tag key={tag} text={tag} />)}
       </ul>
@@ -57,8 +63,11 @@ export default function Card({
   }
 }
 
-const BookmarkStyled = styled.div`
+const BookmarkStyled = styled.button`
   height: 30px;
+  padding: 0;
+  outline: 0;
+  background: transparent;
   border: 10px solid ${props => (props.active ? 'hotpink' : 'lightgray')};
   border-bottom-color: transparent;
   position: absolute;
