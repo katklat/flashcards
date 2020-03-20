@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "env-cmd nodemon --exec babel-node server.js",
-    "db:import": "export `cat .env`; mongoimport -d $DB_NAME -c cards --jsonArray --file ./server/mockdata/cards.json",
+    "db:import": "export `cat .env`; mongoimport -d $DB_NAME -c cards --jsonArray --file ./mockdata/cards.json",
     "db:delete": "export `cat .env`; mongo $DB_NAME --eval 'db.cards.drop()' && echo 'Collection cards dropped.'"
   },
   "browserslist": {
