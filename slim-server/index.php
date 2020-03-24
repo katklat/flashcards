@@ -5,7 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Middlewares\TrailingSlash;
 
-require __DIR__ . '/../../slim-server/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 $app = AppFactory::create();
 $app->add(new TrailingSlash(false)); // remove trailing slashes
