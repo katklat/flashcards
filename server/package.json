@@ -5,7 +5,6 @@
     "email": "jerry@badabam.de"
   },
   "version": "0.1.0",
-  "proxy": "http://localhost:3333",
   "private": true,
   "dependencies": {
     "@babel/core": "7.7.4",
